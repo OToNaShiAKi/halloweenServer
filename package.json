@@ -20,7 +20,8 @@
     "koa-onerror": "^4.1.0",
     "koa-redis": "^4.0.1",
     "koa-router": "^7.4.0",
-    "mongoose": "^5.11.4"
+    "mongoose": "^5.11.4",
+    "nodemailer": "^6.4.16"
   },
   "devDependencies": {
     "cross-env": "^7.0.3"

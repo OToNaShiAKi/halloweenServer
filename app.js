@@ -7,6 +7,9 @@ const logger = require("koa-logger");
 
 const session = require("koa-generic-session");
 const redis = require("koa-redis");
+
+const { AllowCrossOrigin, Certification } = require("./model/Intercept");
+
 app.keys = ["hustmaths", "S&T"];
 
 const users = require("./routes/users");
@@ -14,7 +17,9 @@ const users = require("./routes/users");
 // error handler
 onerror(app);
 
+app.use(AllowCrossOrigin);
 app.use(session({ store: redis() }));
+app.use(Certification);
 
 // middlewares
 app.use(bodyparser({ enableTypes: ["json", "form", "text"] }));

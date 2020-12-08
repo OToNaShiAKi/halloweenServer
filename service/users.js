@@ -6,9 +6,9 @@ exports.Rank = async (_id) => {
   return users.length;
 };
 
-exports.Find = async (nick) => {
+exports.Find = async (where) => {
   const user = await Users.findOne(
-    { nick },
+    where,
     "nick password name phone highest uid"
   );
   if (user) user.rank = await this.Rank(user._id);
@@ -19,5 +19,10 @@ exports.Create = async (info) => {
   info.lastest = info.create = new Date();
   const user = await new Users(info).save();
   user.rank = await this.Rank(info._id);
+  return user;
+};
+
+exports.Update = async (info) => {
+  const user = await info.save();
   return user;
 };
