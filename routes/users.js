@@ -10,7 +10,7 @@ router.post("/account", async (ctx, next) => {
     if (result.status === 200) ctx.session.user = result.data;
     ctx.body = result;
   } catch (error) {
-    ctx.body = error;
+    ctx.body = Error(error.message || error);
   }
 });
 
@@ -21,7 +21,17 @@ router.post("/info", async (ctx, next) => {
     const result = await Users.Info(info, user);
     ctx.body = result;
   } catch (error) {
-    ctx.body = error;
+    ctx.body = Error(error.message || error);
+  }
+});
+
+router.post("/birthday", async (ctx, next) => {
+  try {
+    const { present } = ctx.request.body;
+    const result = await Users.Birthday(present);
+    ctx.body = result;
+  } catch (error) {
+    ctx.body = Error(error.message || error);
   }
 });
 

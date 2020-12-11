@@ -1,7 +1,7 @@
 const Users = require("./../model/Users");
 
 exports.Rank = async (_id) => {
-  const users = await Users.find().sort("highest create");
+  const users = await Users.find().sort("-highest create");
   for (let i = 0; i < users.length; i++) if (_id === users[i]._id) return i + 1;
   return users.length;
 };
@@ -22,7 +22,9 @@ exports.Create = async (info) => {
   return user;
 };
 
-exports.Update = async (info) => {
-  const user = await info.save();
+exports.Update = async (info, user) => {
+  user = await Users.updateOne({ id: user.id }, info);
+  console.log(user);
+  user.rank = await this.Rank(info._id);
   return user;
 };

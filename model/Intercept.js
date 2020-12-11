@@ -12,8 +12,8 @@ const AllowCrossOrigin = async (ctx, next) => {
 const Certification = async (ctx, next) => {
   const allow = ["/users/account"];
   const url = ctx.request.url.split("?")[0];
-  if (ctx.session && ctx.session.user) await next();
-  else ctx.body = AuthWrong;
+  if (ctx.session.user || allow.includes(url)) await next();
+  else ctx.body = Auth;
 };
 
 exports.AllowCrossOrigin = AllowCrossOrigin;
